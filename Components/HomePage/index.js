@@ -4,27 +4,46 @@ import { Container, Content, Footer, FooterTab, Button, Icon, Text } from 'nativ
 import CoffeList from '../CoffeList';
 import CoffeDetail from '../CoffeDetail';
 import CoffeCart from '../CoffeCart';
+import Loading from '../Loading';
 
 import background from '../../images/10.jpg';
 import MyHeader from '../MyHeader';
+import { NativeRouter, Route, Link, Switch } from 'react-router-native';
 
 export default class HomePage extends Component {
+
+  componentDidMount() {
+    console.log(MyStore);
+  }
+
   render() {
+    MyStore = this.props.MyStore
     return (
         <ImageBackground source={background} style={{height: null, width: null, flex: 1}}>
           <Container>
             <MyHeader />
-            <Content>
-              <CoffeCart />
-            </Content>
+              <Content>
+                <Switch>
+                  <Route exact path="/CoffeCart/" render={
+                       props => <CoffeCart {...props} MyStore={MyStore}/>
+                     }/>
+                  <Route exact path="/CoffeDetail/:coffeshop" render={
+                       props => <CoffeDetail {...props} MyStore={MyStore}/>
+                     }/>
+                  <Route exact path="/" render={
+                       props => <CoffeList {...props} MyStore={MyStore}/>
+                     }/>
+                </Switch>
+              </Content>
+            
             <Footer style={{backgroundColor: "transparent"}}>
               <FooterTab>
-                <Button full>
+                <Link to='/CoffeCart/'  component={Button} full>
                   <Text style={styles.footerbutton}>
                     <Icon name='cart' style={styles.footericon} />
                      Cart
                   </Text>
-                </Button>
+                </Link>
               </FooterTab>
             </Footer>
           </Container>

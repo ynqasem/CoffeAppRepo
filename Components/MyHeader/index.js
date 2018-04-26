@@ -3,32 +3,36 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { Container, Header, Title, Button, Left, Right, Body, Icon, Text } from 'native-base';
+import { NativeRouter, Route, Link, Switch } from 'react-router-native';
+import MyStore from '../stores/Store.js';
 
-export default class MyHeader extends Component {
+import {observer} from 'mobx-react';
+
+export default observer(class MyHeader extends Component {
     render() {
       return (
       <Header style={{backgroundColor: "transparent"}} >
 
         <Left>
-            <Button transparent>
+            <Link to='/' component={Button} transparent>
                 <Icon style={styles.backicon} name='arrow-back' />
-            </Button>
+            </Link>
         </Left>
 
         <Body>
         <Title style={styles.header}><Text>Coffe App</Text></Title>
         </Body>
         <Right>
-            <Button transparent>
-                <Text style={styles.text}>3{" "}
+            <Link to='/CoffeCart/'  component={Button} transparent>
+                <Text style={styles.text}>{MyStore.cart.length + " "}
                 <Icon name='beer' style={styles.icon} />
                 </Text>
-            </Button>
+            </Link>
         </Right>
         </Header>
       )
     }
-};
+});
 
 const styles = StyleSheet.create({
     container: {

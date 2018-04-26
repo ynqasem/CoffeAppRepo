@@ -19,7 +19,7 @@ export default class MyApp extends React.Component {
             return <AppLoading/>;
         }
         return (
-                <HomePage/>
+                <HomePage MyStore={this.props.MyStore} />
         );
     }
 }

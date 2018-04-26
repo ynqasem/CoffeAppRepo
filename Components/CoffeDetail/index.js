@@ -8,33 +8,42 @@ export default class CoffeDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          detail: {
-            name: 'StarBucks',
-            location: 'Salmiya',
-            distance: '5 kilometers',
-            image: starbucks,
-            background: starbucks2,
-            lat: 29.32825632,
-            lng: 47.9258696
-          },
-          drink: 0,
-          option: 0,
+                     
+                    drink: 0,
+                    option: 0,
+                    quantity: 1,   
 
         };
     }
+
+
+    currshop(coffeshop) {
+        
+        MyStore.currentShop = coffeshop;
+        MyStore.cart.push(this.state);
+    }
+
   render() {
+
+
+
+    console.log(this.state);
+    const coffeShopName = this.props.match.params.coffeshop;
+    const coffeshop = MyStore.getShopByName(coffeShopName);
+
+    
     return (
         <List>
             <ListItem style={styles.top}>
                 <Left>
                     <Text style={styles.text}>
-                        {this.state.detail.name + '\n'} 
-                        <Text note>{this.state.detail.location}</Text>
+                        {coffeshop.name + '\n'} 
+                        <Text note>{coffeshop.location}</Text>
                     </Text>
                 </Left>
                 <Body />
                 <Right>
-                  <Thumbnail bordered source={this.state.detail.image} />
+                  <Thumbnail bordered source={coffeshop.image} />
                 </Right>
             </ListItem>
             <ListItem >
@@ -55,7 +64,7 @@ export default class CoffeDetail extends Component {
                 <Tab heading="Small"/>
                 <Tab heading="Large"/>
             </Tabs>
-            <Button full danger>
+            <Button full danger onPress={() => this.currshop(coffeshop)}>
                 <Text>Add</Text>
             </Button>
         </List>

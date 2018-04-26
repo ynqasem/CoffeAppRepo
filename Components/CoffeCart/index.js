@@ -54,13 +54,13 @@ export default class CoffeDetail extends Component {
                 <ListItem  style={styles.top}>
                     <Left>
                         <Text style={styles.text}>
-                            {this.state.shop.name + '\n'} 
-                            <Text note>{this.state.shop.location}</Text>
+                            {MyStore.currentShop.name + '\n'} 
+                            <Text note>{MyStore.currentShop.location}</Text>
                         </Text>
                     </Left>
                     <Body/>
                     <Right>
-                        <Thumbnail bordered source={this.state.shop.image} />
+                        <Thumbnail bordered source={MyStore.currentShop.image} />
                     </Right>
                 </ListItem>
                 {this.state.orders.map(
